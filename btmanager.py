@@ -83,6 +83,7 @@ class AnyDevice(gatt.Device):
 if (len(sys.argv)<2):
     print("Usage: bmsinfo.py <device_uuid>")
 else:
-    device = AnyDevice(mac_address=sys.argv[1], manager=manager)
+    ma = 'A4:C1:37:50:2C:2B'
+    device = AnyDevice(mac_address=ma, manager=manager)
     device.connect()
     manager.run()
