@@ -1,6 +1,7 @@
 import gatt
 import json
 import sys
+import time
 
 manager = gatt.DeviceManager(adapter_name='hci0')
 
@@ -64,7 +65,9 @@ class AnyDevice(gatt.Device):
                 self.rawdat['Vbat']=packVolts
                 print("BMS chat ended")
                 print (json.dumps(self.rawdat, indent=1, sort_keys=True))
-                self.disconnect();
+                self.get_voltages=False
+                time.sleep(5)
+                #self.disconnect();
             else:
                 self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
                 self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=False)
