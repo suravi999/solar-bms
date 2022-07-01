@@ -3,3 +3,6 @@ init:
 
 run:
 	python index.py
+
+run2:
+	python btmanager.py
