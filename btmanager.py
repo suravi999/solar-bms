@@ -46,7 +46,7 @@ class AnyDevice(gatt.Device):
             c for c in device_information_service.characteristics
             if c.uuid == '0000ff02-0000-1000-8000-00805f9b34fb')
 
-        #print("BMS found")
+        print("BMS found")
         self.bms_read_characteristic.enable_notifications()
 
     def characteristic_enable_notifications_succeeded(self, characteristic):
