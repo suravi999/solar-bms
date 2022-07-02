@@ -72,13 +72,15 @@ class AnyDevice(gatt.Device):
                     packVolts+=cell
 # + self.rawdat['V{0:0=2}'.format(i)]
                 self.rawdat['Vbat']=packVolts
+                self.rawdat['Ah_remaining1']= (int.from_bytes(self.response[8], byteorder='big', signed=True) * 16 * 16 + int.from_bytes(self.response[9], byteorder='big', signed=True)) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
+                
                 print("BMS chat ended")
                 print (json.dumps(self.rawdat, indent=1, sort_keys=True))
                 #self.get_voltages=False
                 self.disconnect();
             else:
 
-                self.rawdat['Ah_remaining']= (self.response[8] * 16 * 16 + self.response[9]) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
+                self.rawdat['Ah_remaining']= (int.from_bytes(self.response[8], byteorder='big', signed=True) * 16 * 16 + int.from_bytes(self.response[9], byteorder='big', signed=True)) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
                 self.rawdat['Ah_full']=int.from_bytes(self.response[6:8], byteorder='big', signed=True)/100
                 self.rawdat['Cycles']=int.from_bytes(self.response[8:10], byteorder='big', signed=True)
 
