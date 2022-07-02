@@ -1,7 +1,6 @@
 import gatt
 import json
 import sys
-import time
 
 manager = gatt.DeviceManager(adapter_name='hci0')
 
@@ -50,6 +49,7 @@ class AnyDevice(gatt.Device):
         print("BMS notification failed:",error)
 
     def characteristic_value_updated(self, characteristic, value):
+        print("characteristic_value_updated",value)
         print("BMS answering")
         self.response+=value
         if (self.response.endswith(b'w')):
@@ -65,9 +65,8 @@ class AnyDevice(gatt.Device):
                 self.rawdat['Vbat']=packVolts
                 print("BMS chat ended")
                 print (json.dumps(self.rawdat, indent=1, sort_keys=True))
-                self.get_voltages=False
-                time.sleep(5)
-                #self.disconnect();
+                #self.get_voltages=False
+                self.disconnect();
             else:
                 self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
                 self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=False)
@@ -83,8 +82,10 @@ class AnyDevice(gatt.Device):
         print("BMS write failed:",error)
 
 
-
-ma = 'A4:C1:37:50:2C:2B'
-device = AnyDevice(mac_address=ma, manager=manager)
-device.connect()
-manager.run()
+if (len(sys.argv)<2):
+    print("Usage: bmsinfo.py <device_uuid>")
+else:
+    ma = 'A4:C1:37:50:2C:2B'
+    device = AnyDevice(mac_address=sys.argv[1], manager=manager)
+    device.connect()
+    manager.run()

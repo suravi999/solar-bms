@@ -5,4 +5,4 @@ run:
 	python index.py
 
 run2:
-	python btmanager.py
+	python btmanager.py A4:C1:37:50:2C:2B
