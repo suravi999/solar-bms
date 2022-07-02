@@ -66,6 +66,7 @@ class AnyDevice(gatt.Device):
     def characteristic_value_updated(self, characteristic, value):
         print("BMS answering")
         self.response+=value
+        print("BMS answering", self.response)
         if (self.response.endswith(b'w')):
             print("BMS answer:", self.response.hex())
             self.response=self.response[4:]
