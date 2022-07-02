@@ -12,8 +12,6 @@ import json
 import sys
 import time
 
-import sqlite3
-
 from time import gmtime, strftime
 
 manager = gatt.DeviceManager(adapter_name='hci0')
@@ -58,7 +56,7 @@ class AnyDevice(gatt.Device):
         self.response=bytearray()
         self.rawdat={}
         self.get_voltages=False
-        self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
+        self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFD,0x77]));
 
     def characteristic_enable_notifications_failed(self, characteristic, error):
         super.characteristic_enable_notifications_failed(characteristic, error)
