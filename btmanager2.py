@@ -123,7 +123,7 @@ class AnyDevice(gatt.Device):
                 self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFC,0x77]));
 
     def characteristic_write_value_failed(self, characteristic, error):
-        pass
+        print("BMS write failed:",error)
 
 
 
