@@ -44,7 +44,8 @@ class AnyDevice(gatt.Device):
         self.response=bytearray()
         self.rawdat={}
         self.get_voltages=False
-        self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFD,0x77]));
+        #self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFD,0x77]));
+        self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
 
     def characteristic_enable_notifications_failed(self, characteristic, error):
         super.characteristic_enable_notifications_failed(characteristic, error)
@@ -80,11 +81,15 @@ class AnyDevice(gatt.Device):
                 self.disconnect();
             else:
 
-                #self.rawdat['Ah_remaining1']= (self.response[8] * 16 * 16 + self.response[9]) * 10
-                self.rawdat['Ah_remaining']= (int.from_bytes(self.response[3:4], byteorder='big', signed=True))     #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
+                self.rawdat['packV']=int.from_bytes(self.response[0:2], byteorder = 'big',signed=True)/100.0
+                self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
+                self.rawdat['Ah_remaining']=int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
                 self.rawdat['Ah_full']=int.from_bytes(self.response[6:8], byteorder='big', signed=True)/100
                 self.rawdat['Cycles']=int.from_bytes(self.response[8:10], byteorder='big', signed=True)
-
+                self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=False)
+                self.rawdat['State']=int.from_bytes(self.response[16:18], byteorder = 'big',signed=False)
+                self.rawdat['FET_St']=int.from_bytes(self.response[20:21], byteorder = 'big',signed=False)
+                self.rawdat['Ah_percent']=round(self.rawdat['Ah_remaining'] / self.rawdat['Ah_full'] * 100, 2)
 
                 self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
                 print("bal byte value",self.response[12:14])
@@ -95,7 +100,8 @@ class AnyDevice(gatt.Device):
                 print("BMS request voltages")
                 self.get_voltages=True
                 self.response=bytearray()
-                self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
+                #self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
+                self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFC,0x77]));
 
     def characteristic_write_value_failed(self, characteristic, error):
         print("BMS write failed:",error)
