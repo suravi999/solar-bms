@@ -19,9 +19,6 @@ from time import gmtime, strftime
 manager = gatt.DeviceManager(adapter_name='hci0')
 
 class AnyDevice(gatt.Device):
-    def  __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
     def connect_succeeded(self):
         super().connect_succeeded()
         print("[%s] Connected" % (self.mac_address))
