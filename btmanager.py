@@ -108,7 +108,9 @@ class AnyDevice(gatt.Device):
 
                 time.sleep(10)
                 # Resend query
-                self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
+                #self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFD,0x77]));
+                self.bms_write_characteristic.write_value(bytes([0xdd, 0xa5, 0x04, 0x00, 0xff, 0xfc, 0x77]));
+                #[0xdd, 0xa5, 0x04, 0x00, 0xff, 0xfc, 0x77]
 
     def characteristic_write_value_failed(self, characteristic, error):
         print("BMS write failed:",error)
