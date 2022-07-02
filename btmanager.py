@@ -54,8 +54,11 @@ class AnyDevice(gatt.Device):
         self.response+=value
         if (self.response.endswith(b'w')):
             print("BMS answer:", self.response.hex())
-            self.rawdat['AA']=int.from_bytes(self.response[0:2], byteorder = 'big',signed=True)
-            self.rawdat['BB']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)
+            try:
+                self.rawdat['AA']=int.from_bytes(self.response[0:2], byteorder = 'big',signed=True)
+                self.rawdat['BB']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)
+            except Exception as e:
+                print(e)
             self.response=self.response[4:]
             if (self.get_voltages):
                 packVolts=0
