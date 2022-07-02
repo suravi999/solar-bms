@@ -69,7 +69,8 @@ class AnyDevice(gatt.Device):
                 self.disconnect();
             else:
                 self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
-                self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=False)
+                print("bal byte value",self.response[12:14])
+                self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=True)
                 for i in range(int.from_bytes(self.response[22:23],'big')): # read temperatures
                     self.rawdat['T{0:0=1}'.format(i+1)]=(int.from_bytes(self.response[23+i*2:i*2+25],'big')-2731)/10
 
