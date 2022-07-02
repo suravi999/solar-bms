@@ -2,6 +2,8 @@ import gatt
 import json
 import sys
 
+from time import gmtime, strftime
+
 manager = gatt.DeviceManager(adapter_name='hci0')
 
 class AnyDevice(gatt.Device):
