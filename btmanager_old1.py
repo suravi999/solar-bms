@@ -80,10 +80,9 @@ class AnyDevice(gatt.Device):
 
                 self.rawdat['Ah_remaining']=int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
                 self.rawdat['Ah_full']=int.from_bytes(self.response[6:8], byteorder='big', signed=True)/100
-                self.rawdat['Ah_percent']=round(self.rawdat['Ah_remaining'] / self.rawdat['Ah_full'] * 100, 2)
                 self.rawdat['Cycles']=int.from_bytes(self.response[8:10], byteorder='big', signed=True)
 
-                
+
                 self.rawdat['Ibat']=int.from_bytes(self.response[2:4], byteorder = 'big',signed=True)/100.0
                 print("bal byte value",self.response[12:14])
                 self.rawdat['Bal']=int.from_bytes(self.response[12:14],byteorder = 'big',signed=False)
