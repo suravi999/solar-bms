@@ -24,6 +24,7 @@ class AnyDevice(gatt.Device):
 
     def connect_succeeded(self):
         super().connect_succeeded()
+        print("[%s] Connected" % (self.mac_address))
 
     def connect_failed(self, error):
         super().connect_failed(error)
