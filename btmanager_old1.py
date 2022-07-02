@@ -78,7 +78,7 @@ class AnyDevice(gatt.Device):
                 self.disconnect();
             else:
 
-                self.rawdat['Ah_remaining']=int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
+                self.rawdat['Ah_remaining']= (self.response[8] * 16 * 16 + self.response[9]) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
                 self.rawdat['Ah_full']=int.from_bytes(self.response[6:8], byteorder='big', signed=True)/100
                 self.rawdat['Cycles']=int.from_bytes(self.response[8:10], byteorder='big', signed=True)
 
@@ -92,7 +92,7 @@ class AnyDevice(gatt.Device):
                 print("BMS request voltages")
                 self.get_voltages=True
                 self.response=bytearray()
-                self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x04,0x00,0xFF,0xFC,0x77]));
+                self.bms_write_characteristic.write_value(bytes([0xDD,0xA5,0x03,0x00,0xFF,0xFC,0x77]));
 
     def characteristic_write_value_failed(self, characteristic, error):
         print("BMS write failed:",error)
