@@ -1,0 +1,19 @@
+links
+bus - https://www.npmjs.com/package/ibus - ibus interface changes for latest serialport
+node events - https://nodejs.org/docs/latest/api/events.html
+samba - https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
+express-generator - https://expressjs.com/en/starter/generator.html
+usb -* ls -l /dev/tty* - https://www.raspberrypi.org/forums/viewtopic.php?f=50&t=31141
+forever start -c "npm start" /path/to/app/dir/
+wicd-curses - http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/
+
+codes
+http://www.e39-forum.de/index.php?thread/28666-ecke-der-ibus-hacker/&pageNo=10
+
+
+raspi 3g
+- clean sys log https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=122601
+https://www.emnify.com/2015/06/18/how-to-fit-a-raspberry-pi-with-mobile-connectivity/
+http://myhowtosandprojects.blogspot.hr/2013/12/how-to-setup-usb-3g-modem-linux.html
+https://forum.ubuntuusers.de/topic/howto-surfstick-t-mobile-zte-mf637/
+

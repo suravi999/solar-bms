@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../../favicon.ico">
+	<title>BMS</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../../css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="../../css/highcharts.css" rel="stylesheet"> -->
+
+</head>
+
+<body style="background-color: #1b1b1b;">
+	<nav id="header-swipe" class="navbar navbar-default" style="background-color: #1b1b1b;">
+		<!-- navbar-fixed-top -->
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				 aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+				</button>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav nav-pills">
+					<li id="menudashboard" class="menu-item active">
+						<a href="#dashboardlink" data-transition="slide" class="navigation">Dashboard</a>
+					</li>
+					<li id="menustatus" class="menu-item">
+						<a href="#monitorlink" data-transition="slide" class="navigation">Monitor</a>
+					</li>
+					<li id="menudebug" class="menu-item">
+						<a href="#debuglink" data-transition="slide" class="navigation">Debug</a>
+					</li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container" id="content-container">
+
+		<body>
+			<div id="dashboardgroup" class="group" index=0>
+				<div class="col-md-12">
+					<button id="btnStartMonitor" type="button" class="btn btn-md btn-warning">start</button>
+					<button id="btnStopMonitor" type="button" class="btn btn-md btn-danger">stop</button>
+				</div>
+				<div class="col-md-12">
+					<div id="chart-amp2" style="left: 0px; top: 0px; min-width: 500px; height: 350px; user-select: none;"></div>
+				</div>
+			</div>
+			<div id="monitorgroup" class="group" index=1 style="display: none;">
+				<div class="row" id="generalcol">
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="packV"></label>
+						</h3>
+						<label class="label label-default">Pack Voltage (V)</label>
+					</div>
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="currentA"></label>
+						</h3>
+						<label class="label label-default">Current (A)</label>
+					</div>
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="tempMin"></label>
+						</h3>
+						<label class="label label-default">Temp Min (Celsius)</label>
+					</div>
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="tempMax"></label>
+						</h3>
+						<label class="label label-default">Temp Max (Celsius)</label>
+					</div>
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="remaining"></label>
+						</h3>
+						<label class="label label-default">Remaining Capacity (mAh)</label>
+					</div>
+					<div class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="full"></label>
+						</h3>
+						<label class="label label-default">Full Capacity (mAh)</label>
+					</div>
+					<div id="infocol" class="col-xs-4 col-md-2">
+						<h3>
+							<label class="label label-primary" id="timestamp"></label>
+						</h3>
+						<label class="label label-default">Last Update UTC</label>
+						<label class="label label-default" id="name"></label>
+					</div>
+				</div>
+
+				<div class="page-header" id="cell-page-header">
+					<h3>Cell Voltages</h3><button id="btnReadCells" type="button" class="btn btn-sm btn-info">Read</button>
+					
+				</div>
+				<div id="cellcol" class="">
+				</div>
+			</div>
+			<div id="debuggroup" class="group" index=2 style="display: none;">
+				<div class="row">
+					<div class="col-md-12">
+						<button id="btnConnectBT" type="button" class="btn btn-sm btn-warning">Connect BT</button>
+						<button id="btnDisconnectBT" type="button" class="btn btn-sm btn-danger">Disconnect BT</button>
+						<h2></h2>
+					</div>
+				</div>
+				<div id="messagesender" class="row">
+					<div class="col-md-12">
+						<input type="text" id="message" autocomplete="on" class="input-sm" autocomplete="autocomplete">
+						<button id="btnSendMessage" type="button" class="btn btn-sm btn-info">send message</button>
+					</div>
+				</div>
+				<h8>&nbsp;</h8>
+				<div class="col-md-12">
+					<div id="messagesender" class="row">
+						<button id="btnClear" class="btn btn-small btn-info" type="button" onclick="$('#messageslist').html('');">clear</button>
+						<pre id="messageslist"></pre>
+					</div>
+				</div>
+			</div>
+		</body>
+	</div>
+	<!-- /.container -->
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="../../javascripts/jquery-3.2.0.min.js"></script>
+	<script src="../../javascripts/jquery.mobile.custom.min.js"></script>
+	<script src="../../javascripts/socket.io.min.js"></script>
+	<script src="../../javascripts/bms_main.js"></script>
+	<script>
+		window.jQuery || document.write("<script src='../../assets/js/vendor/jquery.min.js'><\/script>")
+	</script>
+	<script src="../../javascripts/bootstrap.min.js"></script>
+	<script src="../../javascripts/echarts-all.js"></script>
+	<script src="../../javascripts/theme/macarons.js"></script>
+	<script type="text/javascript">
+		jQuery(function ($) {
+			setGauges('chart-amp2');
+		});
+	</script>
+</body>
+
+</html>
