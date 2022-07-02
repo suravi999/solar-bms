@@ -50,6 +50,8 @@ class AnyDevice(gatt.Device):
 
     def characteristic_value_updated(self, characteristic, value):
         print("characteristic_value_updated",value)
+        print(strftime("BMS update: %Y-%m-%d %H:%M:%S", gmtime()))
+        print("lenvalue", repr(len(value)))
         print("BMS answering")
         self.response+=value
         if (self.response.endswith(b'w')):
