@@ -80,7 +80,7 @@ class AnyDevice(gatt.Device):
                 self.disconnect();
             else:
 
-                self.rawdat['Ah_remaining']= (int.from_bytes(self.response[8], byteorder='big', signed=True) * 16 * 16 + int.from_bytes(self.response[9], byteorder='big', signed=True)) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
+                #self.rawdat['Ah_remaining']= (int.from_bytes(self.response[8], byteorder='big', signed=True) * 16 * 16 + int.from_bytes(self.response[9], byteorder='big', signed=True)) * 10      #int.from_bytes(self.response[4:6], byteorder='big', signed=True)/100
                 self.rawdat['Ah_full']=int.from_bytes(self.response[6:8], byteorder='big', signed=True)/100
                 self.rawdat['Cycles']=int.from_bytes(self.response[8:10], byteorder='big', signed=True)
 
