@@ -4,6 +4,7 @@ import json
 import datetime
 import sys
 import time
+import InfluxdataManager
 
 global data
 #data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -104,6 +105,7 @@ class AnyDevice(gatt.Device):
                 data['State'] = self.rawdat['State']
                 data['FET_St'] = self.rawdat['FET_St']
 
+                InfluxdataManager.SendData(data)
                 print(data)
 
                 self.manager.stop()
