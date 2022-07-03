@@ -10,16 +10,20 @@ org = "suravipk@gmail.com"
 bucket = "solar"
 
 def SendData(data):
-    with InfluxDBClient(url="https://us-east-1-1.aws.cloud2.influxdata.com", token=token, org=org) as client:
-            write_api = client.write_api(write_options=SYNCHRONOUS)
-            dataToSend = {}
-            dataToSend['measurement'] = "759_2_A_3"
-            dataToSend['fields'] = data
-            tag = {}
-            tag['user'] = 'BMS'
-            tag['id'] = 'raspberry'
-            dataToSend['tags'] = tag
-            #data = "mem,host=host1 used_percent=23.43234543"
-            write_api.write(bucket, org, dataToSend)
+    try:
+        with InfluxDBClient(url="https://us-east-1-1.aws.cloud2.influxdata.com", token=token, org=org) as client:
+                write_api = client.write_api(write_options=SYNCHRONOUS)
+                dataToSend = {}
+                dataToSend['measurement'] = "759_2_A_3"
+                dataToSend['fields'] = data
+                tag = {}
+                tag['user'] = 'BMS'
+                tag['id'] = 'raspberry'
+                dataToSend['tags'] = tag
+                #data = "mem,host=host1 used_percent=23.43234543"
+                write_api.write(bucket, org, dataToSend)
+    except Exception as e:
+        print(e)
+
 
 

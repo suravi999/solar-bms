@@ -137,9 +137,12 @@ if (len(sys.argv)<2):
     print("Usage: bms-shed.py <device_uuid>")
 else:
     while True:
-        device = AnyDevice(mac_address=sys.argv[1], manager=manager)
-        print("main AnyDevice")
-        device.connect()
-        print("main device.connect")
-        manager.run()
-        time.sleep(10)
+        try:
+            device = AnyDevice(mac_address=sys.argv[1], manager=manager)
+            print("main AnyDevice")
+            device.connect()
+            print("main device.connect")
+            manager.run()
+        except:
+            pass
+        time.sleep(60)
