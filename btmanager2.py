@@ -226,7 +226,6 @@ class Metrics():
 if (len(sys.argv)<2):
     print("Usage: bms-shed.py <device_uuid>")
 else:
-    start_http_server(8000)
     metrics = Metrics()
     while True:
         device = AnyDevice(mac_address=sys.argv[1], manager=manager)
