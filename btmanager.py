@@ -142,4 +142,4 @@ else:
         device.connect()
         print("main device.connect")
         manager.run()
-        time.sleep(30)
+        time.sleep(10)
