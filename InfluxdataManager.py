@@ -12,6 +12,8 @@ bucket = "solar"
 def SendData(data):
     with InfluxDBClient(url="https://us-east-1-1.aws.cloud2.influxdata.com", token=token, org=org) as client:
             write_api = client.write_api(write_options=SYNCHRONOUS)
+            data['measurement'] = "759_2_A_3"
+            #data = "mem,host=host1 used_percent=23.43234543"
             write_api.write(bucket, org, data)
 
 
