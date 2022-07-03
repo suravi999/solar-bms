@@ -221,6 +221,7 @@ class Metrics():
             mode = 'discharging'
 
         self.mode_enum.state(mode)
+        print(self)
 
 
 if (len(sys.argv)<2):
