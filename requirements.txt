@@ -1,3 +1,4 @@
 timeloop
 gatt
 prometheus_client
+influxdb-client
