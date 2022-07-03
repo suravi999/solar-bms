@@ -134,7 +134,6 @@ class AnyDevice(gatt.Device):
 if (len(sys.argv)<2):
     print("Usage: bms-shed.py <device_uuid>")
 else:
-    metrics = Metrics()
     while True:
         device = AnyDevice(mac_address=sys.argv[1], manager=manager)
         print("main AnyDevice")
