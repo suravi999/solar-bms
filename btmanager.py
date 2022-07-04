@@ -63,6 +63,11 @@ class AnyDevice(gatt.Device):
         print("BMS answering")
         self.response+=value
         print("BMS answering", self.response)
+
+        print("BMS answering", self.response.decode('utf8'))
+        print("HD BMS answering",b'\x00\x00'.decode('utf8'))
+        #if(bytes(x00 x00) == self.response)
+
         if (self.response.endswith(b'w')):
             print("BMS answer:", self.response.hex())
             self.response=self.response[4:]
