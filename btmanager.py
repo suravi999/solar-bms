@@ -64,10 +64,15 @@ class AnyDevice(gatt.Device):
         self.response+=value
         print("BMS answering", self.response)
 
-        print("BMS answering", self.response.decode('utf8'))
-        print("HD BMS answering",b'\x00\x00'.decode('utf8'))
-        #if(bytes(x00 x00) == self.response)
-
+        print("BMS answering", self.response)
+        print("HD BMS answering",bytearray('\x00\x00'))
+        try:
+            if bytearray('x00 x00') == self.response :
+                print("same")
+            else:
+                print("not same")
+        except:
+            pass
         if (self.response.endswith(b'w')):
             print("BMS answer:", self.response.hex())
             self.response=self.response[4:]
