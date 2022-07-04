@@ -65,14 +65,15 @@ class AnyDevice(gatt.Device):
         print("BMS answering", self.response)
 
         print("BMS answering", self.response)
-        print("HD BMS answering",bytearray('\x00\x00'))
+        print("HD BMS answering",bytearray(2))
         try:
-            if bytearray('x00 x00') == self.response :
+            if bytearray(2) == self.response :
                 print("same")
+                self.manager.stop()
             else:
                 print("not same")
-        except:
-            pass
+        except Exception as e:
+            print(e)
         if (self.response.endswith(b'w')):
             print("BMS answer:", self.response.hex())
             self.response=self.response[4:]
@@ -153,6 +154,6 @@ else:
             device.connect()
             print("main device.connect")
             manager.run()
-        except:
-            pass
+        except Exception as e:
+            print(e)
         time.sleep(60)
