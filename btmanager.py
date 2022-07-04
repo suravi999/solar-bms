@@ -156,4 +156,4 @@ else:
             manager.run()
         except Exception as e:
             print(e)
-        time.sleep(60)
+        time.sleep(60*5)
