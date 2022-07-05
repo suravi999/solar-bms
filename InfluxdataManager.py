@@ -20,7 +20,6 @@ def SendData(data):
                 tag['user'] = 'BMS'
                 tag['id'] = 'raspberry'
                 dataToSend['tags'] = tag
-                #data = "mem,host=host1 used_percent=23.43234543"
                 write_api.write(bucket, org, dataToSend)
     except Exception as e:
         print(e)

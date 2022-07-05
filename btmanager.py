@@ -67,7 +67,7 @@ class AnyDevice(gatt.Device):
         print("BMS answering", self.response)
         print("HD BMS answering",bytearray(2))
         try:
-            if bytearray(2) == self.response :
+            if bytearray(5) == self.response :
                 print("same")
                 self.manager.stop()
             else:
@@ -116,8 +116,9 @@ class AnyDevice(gatt.Device):
                 data['State'] = self.rawdat['State']
                 data['FET_St'] = self.rawdat['FET_St']
 
+                print("data ready : " , data)
                 InfluxdataManager.SendData(data)
-                print(data)
+                print("Data sent")
 
                 self.manager.stop()
             else:
