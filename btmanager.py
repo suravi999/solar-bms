@@ -78,47 +78,50 @@ class AnyDevice(gatt.Device):
             print("BMS answer:", self.response.hex())
             self.response=self.response[4:]
             if (self.get_voltages):
-                packVolts=0
-                for i in range(int(len(self.response)/2)-1):
-                    cell=int.from_bytes(self.response[i*2:i*2+2], byteorder = 'big')/1000
-                    self.rawdat['V{0:0=2}'.format(i+1)]=cell
-                    packVolts+=cell
-                # + self.rawdat['V{0:0=2}'.format(i)]
-                self.rawdat['Vbat']=packVolts
-                self.rawdat['P']=round(self.rawdat['Vbat']*self.rawdat['Ibat'], 1)
+                try:
+                    packVolts=0
+                    for i in range(int(len(self.response)/2)-1):
+                        cell=int.from_bytes(self.response[i*2:i*2+2], byteorder = 'big')/1000
+                        self.rawdat['V{0:0=2}'.format(i+1)]=cell
+                        packVolts+=cell
+                    # + self.rawdat['V{0:0=2}'.format(i)]
+                    self.rawdat['Vbat']=packVolts
+                    self.rawdat['P']=round(self.rawdat['Vbat']*self.rawdat['Ibat'], 1)
 
-                data['Ah_percent'] = self.rawdat['Ah_percent']
-                data['Ah_remaining'] = self.rawdat['Ah_remaining']
-                data['Ah_full'] = self.rawdat['Ah_full']
-                data['P'] = self.rawdat['P']
-                data['Vbat'] = self.rawdat['Vbat']
-                data['Ibat'] = self.rawdat['Ibat']
-                data['T1'] = self.rawdat['T1']
-                data['Cycles'] = self.rawdat['Cycles']
-                data['T2'] = self.rawdat['T2']
-                data['V01'] = self.rawdat['V01']
-                data['V02'] = self.rawdat['V02']
-                data['V03'] = self.rawdat['V03']
-                data['V04'] = self.rawdat['V04']
-                data['V05'] = self.rawdat['V05']
-                data['V06'] = self.rawdat['V06']
-                data['V07'] = self.rawdat['V07']
-                data['V08'] = self.rawdat['V08']
-                data['V09'] = self.rawdat['V09']
-                data['V10'] = self.rawdat['V10']
-                data['V11'] = self.rawdat['V11']
-                data['V12'] = self.rawdat['V12']
-                data['V13'] = self.rawdat['V13']
-                data['V14'] = self.rawdat['V14']
-                data['V15'] = self.rawdat['V15']
-                data['V16'] = self.rawdat['V16']
-                data['Bal'] = self.rawdat['Bal']
-                data['State'] = self.rawdat['State']
-                data['FET_St'] = self.rawdat['FET_St']
+                    data['Ah_percent'] = self.rawdat['Ah_percent']
+                    data['Ah_remaining'] = self.rawdat['Ah_remaining']
+                    data['Ah_full'] = self.rawdat['Ah_full']
+                    data['P'] = self.rawdat['P']
+                    data['Vbat'] = self.rawdat['Vbat']
+                    data['Ibat'] = self.rawdat['Ibat']
+                    data['T1'] = self.rawdat['T1']
+                    data['Cycles'] = self.rawdat['Cycles']
+                    data['T2'] = self.rawdat['T2']
+                    data['V01'] = self.rawdat['V01']
+                    data['V02'] = self.rawdat['V02']
+                    data['V03'] = self.rawdat['V03']
+                    data['V04'] = self.rawdat['V04']
+                    data['V05'] = self.rawdat['V05']
+                    data['V06'] = self.rawdat['V06']
+                    data['V07'] = self.rawdat['V07']
+                    data['V08'] = self.rawdat['V08']
+                    data['V09'] = self.rawdat['V09']
+                    data['V10'] = self.rawdat['V10']
+                    data['V11'] = self.rawdat['V11']
+                    data['V12'] = self.rawdat['V12']
+                    data['V13'] = self.rawdat['V13']
+                    data['V14'] = self.rawdat['V14']
+                    data['V15'] = self.rawdat['V15']
+                    data['V16'] = self.rawdat['V16']
+                    data['Bal'] = self.rawdat['Bal']
+                    data['State'] = self.rawdat['State']
+                    data['FET_St'] = self.rawdat['FET_St']
 
-                print("data ready : " , data)
-                InfluxdataManager.SendData(data)
-                print("Data sent")
+                    print("data ready : " , data)
+                    InfluxdataManager.SendData(data)
+                    print("Data sent")
+                except Exception as e:
+                    print(e)
 
                 self.manager.stop()
             else:
